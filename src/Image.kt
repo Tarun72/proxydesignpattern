@@ -1,7 +1,7 @@
-import javafx.geometry.Point2D
+import location.Location
 
 interface Image {
     fun render()
-    fun location(): Point2D
-    fun setBitMapLocation(point2D: Point2D)
+    fun location(): Location
+    fun setBitMapLocation(point2D: Location)
 }

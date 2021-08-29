@@ -1,20 +1,23 @@
 package static
 
 import Image
-import javafx.geometry.Point2D
+import location.Location
 
 class ProxyImage(val name: String) : Image {
     private lateinit var bitmapImage: BitmapImage
-    private lateinit var location: Point2D
+    private lateinit var location: Location
 
     override fun render() {
-        if (!::bitmapImage.isInitialized) {
+        if (::bitmapImage.isInitialized) {
+            bitmapImage.setBitMapLocation(location)
+        }else{
+            println("Proxy image rendering $location")
             bitmapImage = BitmapImage(name)
             bitmapImage.setBitMapLocation(location)
         }
     }
 
-    override fun location(): Point2D {
+    override fun location(): Location {
         return if (::bitmapImage.isInitialized) {
             bitmapImage.location()
         } else {
@@ -22,7 +25,7 @@ class ProxyImage(val name: String) : Image {
         }
     }
 
-    override fun setBitMapLocation(point2D: Point2D) {
+    override fun setBitMapLocation(point2D: Location) {
         if (::bitmapImage.isInitialized) {
             bitmapImage.setBitMapLocation(point2D)
         } else {
